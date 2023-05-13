@@ -13,6 +13,7 @@ import ErrorPage from "./pages/Error";
 
 import { action as loginAction } from "./pages/Login";
 import { action as signupAction } from "./pages/Signup";
+import { action as addStoreAction } from "./pages/Stores";
 import { useEffect } from "react";
 
 const router = createBrowserRouter([
@@ -24,7 +25,7 @@ const router = createBrowserRouter([
       { index: true, element: <HomePage /> },
       { path: "/login", element: <LoginPage />, action: loginAction },
       { path: "/signup", element: <SignupPage />, action: signupAction },
-      { path: "/stores", element: <StoresPage /> },
+      { path: "/stores", element: <StoresPage />, action: addStoreAction },
       { path: "/stores/:storeName", element: <ProductsPage /> },
       {
         path: "/stores/:storeName/:productId",

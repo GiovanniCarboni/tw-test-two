@@ -53,11 +53,10 @@ export const register = (email, password) => (dispatch) => {
     return;
   }
 
-  localStorage.setItem(
-    "users",
-    JSON.stringify([...users, { email, password, type: "user" }])
-  );
-  dispatch(authActions.login({ email, type: "user" }));
+  const newUser = { email, password, type: "user" };
+
+  localStorage.setItem("users", JSON.stringify([...users, newUser]));
+  dispatch(authActions.login({ email: newUser.email, type: newUser.type }));
 };
 
 export default authSlice.reducer;
