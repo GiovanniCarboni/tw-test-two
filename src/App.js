@@ -1,4 +1,7 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
+
+import dummyUsers from "./data/users";
+
 import HomePage from "./pages/Home";
 import LoginPage from "./pages/Login";
 import SignupPage from "./pages/Signup";
@@ -8,6 +11,10 @@ import ProductDetailsPage from "./pages/ProductDetails";
 import RootLayout from "./pages/Root";
 import ErrorPage from "./pages/Error";
 
+import { action as loginAction } from "./pages/Login";
+import { action as signupAction } from "./pages/Signup";
+import { useEffect } from "react";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -15,8 +22,8 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       { index: true, element: <HomePage /> },
-      { path: "/login", element: <LoginPage /> },
-      { path: "/signup", element: <SignupPage /> },
+      { path: "/login", element: <LoginPage />, action: loginAction },
+      { path: "/signup", element: <SignupPage />, action: signupAction },
       { path: "/stores", element: <StoresPage /> },
       { path: "/stores/:storeName", element: <ProductsPage /> },
       {
@@ -28,6 +35,12 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
+  useEffect(() => {
+    if (!JSON.parse(localStorage.getItem("users"))) {
+      localStorage.setItem("users", JSON.stringify(dummyUsers));
+    }
+  }, []);
+
   return <RouterProvider router={router} />;
 }
 
