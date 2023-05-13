@@ -8,8 +8,6 @@ export default function StoresPage() {
   const auth = useSelector((state) => state.auth);
   const { stores } = useSelector((state) => state.stores);
 
-  console.log(stores);
-
   if (!auth.isLoggedIn) {
     return <p>You must be logged in to view this page</p>;
   }

@@ -1,15 +1,20 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {
-  isLoggedIn: false,
-  email: null,
-  type: null,
-  error: null,
+const initState = () => {
+  const session = JSON.parse(localStorage.getItem("session"));
+  return session
+    ? session
+    : {
+        isLoggedIn: false,
+        email: null,
+        type: null,
+        error: null,
+      };
 };
 
 const authSlice = createSlice({
   name: "auth",
-  initialState,
+  initialState: initState(),
   reducers: {
     error: (state, action) => {
       state.error = action.payload.error;
@@ -20,7 +25,12 @@ const authSlice = createSlice({
       type: action.payload.type,
       error: null,
     }),
-    logout: (state) => initialState,
+    logout: (state) => ({
+      isLoggedIn: false,
+      email: null,
+      type: null,
+      error: null,
+    }),
   },
 });
 

@@ -15,6 +15,7 @@ import { action as loginAction } from "./pages/Login";
 import { action as signupAction } from "./pages/Signup";
 import { action as addStoreAction } from "./pages/Stores";
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,12 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
+  const auth = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    localStorage.setItem("session", JSON.stringify(auth));
+  }, [auth]);
+
   useEffect(() => {
     if (!JSON.parse(localStorage.getItem("users"))) {
       localStorage.setItem("users", JSON.stringify(dummyUsers));
