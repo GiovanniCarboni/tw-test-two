@@ -17,9 +17,7 @@ export default function StoresManager() {
         <Form method="post">
           <label htmlFor="name">Store name</label>
           <input type="text" id="name" name="name" />
-          <label htmlFor="address">
-            Store <address></address>
-          </label>
+          <label htmlFor="address">Store Address</label>
           <input type="text" id="address" name="address" />
           <button>Save</button>
         </Form>

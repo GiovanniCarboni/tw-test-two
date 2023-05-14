@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import { StoresManager } from "../components";
 import store from "../store";
 import { storesActions } from "../store/stores/storesSlice";
-import { redirect } from "react-router-dom";
+import { Link, redirect } from "react-router-dom";
 
 export default function StoresPage() {
   const auth = useSelector((state) => state.auth);
@@ -18,10 +18,12 @@ export default function StoresPage() {
       {auth.type === "admin" && <StoresManager />}
       {stores.length > 0 &&
         stores.map((store) => (
-          <div key={store.name} style={{ border: "1px solid black" }}>
-            <p>{store.name}</p>
-            <p>{store.address}</p>
-          </div>
+          <Link key={store.name} to={store.name}>
+            <div style={{ border: "1px solid black" }}>
+              <p>{store.name}</p>
+              <p>{store.address}</p>
+            </div>
+          </Link>
         ))}
     </>
   );

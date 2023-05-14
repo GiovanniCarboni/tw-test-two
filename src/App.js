@@ -1,6 +1,7 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
 import dummyUsers from "./data/users";
+import dummyStores from "./data/stores";
 
 import HomePage from "./pages/Home";
 import LoginPage from "./pages/Login";
@@ -14,6 +15,8 @@ import ErrorPage from "./pages/Error";
 import { action as loginAction } from "./pages/Login";
 import { action as signupAction } from "./pages/Signup";
 import { action as addStoreAction } from "./pages/Stores";
+import { loader as loadProducts } from "./pages/Products";
+import { action as editStoreAction } from "./pages/Products";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 
@@ -27,7 +30,12 @@ const router = createBrowserRouter([
       { path: "/login", element: <LoginPage />, action: loginAction },
       { path: "/signup", element: <SignupPage />, action: signupAction },
       { path: "/stores", element: <StoresPage />, action: addStoreAction },
-      { path: "/stores/:storeName", element: <ProductsPage /> },
+      {
+        path: "/stores/:storeName",
+        element: <ProductsPage />,
+        loader: loadProducts,
+        action: editStoreAction,
+      },
       {
         path: "/stores/:storeName/:productId",
         element: <ProductDetailsPage />,
@@ -38,14 +46,22 @@ const router = createBrowserRouter([
 
 function App() {
   const auth = useSelector((state) => state.auth);
+  const stores = useSelector((state) => state.stores.stores);
 
   useEffect(() => {
     localStorage.setItem("session", JSON.stringify(auth));
   }, [auth]);
 
   useEffect(() => {
+    localStorage.setItem("stores", JSON.stringify(stores));
+  }, [stores]);
+
+  useEffect(() => {
     if (!JSON.parse(localStorage.getItem("users"))) {
       localStorage.setItem("users", JSON.stringify(dummyUsers));
+    }
+    if (!JSON.parse(localStorage.getItem("stores"))) {
+      localStorage.setItem("stores", JSON.stringify(dummyStores));
     }
   }, []);
 
