@@ -17,6 +17,8 @@ import { action as signupAction } from "./pages/Signup";
 import { action as addStoreAction } from "./pages/Stores";
 import { loader as loadProducts } from "./pages/Products";
 import { action as editStoreAction } from "./pages/Products";
+import { loader as loadProductDetails } from "./pages/ProductDetails";
+import { action as editProductAction } from "./pages/ProductDetails";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 
@@ -37,8 +39,10 @@ const router = createBrowserRouter([
         action: editStoreAction,
       },
       {
-        path: "/stores/:storeName/:productId",
+        path: "/stores/:storeName/:productName",
         element: <ProductDetailsPage />,
+        loader: loadProductDetails,
+        action: editProductAction,
       },
     ],
   },

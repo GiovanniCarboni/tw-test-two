@@ -1,5 +1,11 @@
 import { useSelector } from "react-redux";
-import { redirect, useLoaderData } from "react-router-dom";
+import {
+  redirect,
+  useLoaderData,
+  Link,
+  json,
+  useActionData,
+} from "react-router-dom";
 import store from "../store";
 import { storesActions } from "../store/stores/storesSlice";
 import { StoreManager } from "../components";
@@ -7,6 +13,7 @@ import { StoreManager } from "../components";
 export default function ProductsPage() {
   const store = useLoaderData();
   const auth = useSelector((state) => state.auth);
+  const data = useActionData();
 
   if (!auth.isLoggedIn) {
     return <p>You must be logged in to view this page</p>;
@@ -16,13 +23,16 @@ export default function ProductsPage() {
     <>
       <h1>{store.name}</h1>
       <p>{store.address}</p>
+      {data && data.message && <p>{data.message}</p>}
       {auth.type === "admin" && <StoreManager />}
       {store.products &&
         store.products.map((product) => (
-          <div key={product.name} style={{ border: "1px solid black" }}>
-            <p>{product.name}</p>
-            <p>{product.description}</p>
-          </div>
+          <Link key={product.name} to={product.name}>
+            <div style={{ border: "1px solid black" }}>
+              <p>{product.name}</p>
+              <p>{product.description}</p>
+            </div>
+          </Link>
         ))}
     </>
   );
@@ -64,12 +74,20 @@ export const action = async ({ request, params }) => {
 
   // ADD PRODUCT
   if (request.method === "POST") {
+    const products = JSON.parse(localStorage.getItem("stores")).find(
+      (store) => store.name === params.storeName
+    ).products;
+    console.log(products);
+
     const data = await request.formData();
     const newProduct = {
       name: data.get("name"),
       description: data.get("description"),
     };
 
+    if (products.some((product) => product.name === newProduct.name)) {
+      return json({ message: "This product already exists" });
+    }
     store.dispatch(
       storesActions.addProduct({ storeName: params.storeName, newProduct })
     );

@@ -15,13 +15,11 @@ const storesSlice = createSlice({
         { ...action.payload.newStore, products: [] },
       ];
     },
-    deleteStore: (state, action) => {
-      return {
-        stores: state.stores.filter(
-          (store) => store.name !== action.payload.name
-        ),
-      };
-    },
+    deleteStore: (state, action) => ({
+      stores: state.stores.filter(
+        (store) => store.name !== action.payload.name
+      ),
+    }),
     editStore: (state, action) => {
       const index = state.stores.findIndex(
         (store) => store.name === action.payload.name
@@ -35,8 +33,33 @@ const storesSlice = createSlice({
       const index = state.stores.findIndex((store) => store.name === storeName);
       state.stores[index].products.push(newProduct);
     },
-    deleteProduct: (state, action) => {},
-    editProduct: (state, action) => {},
+    deleteProduct: (state, action) => {
+      const storeName = action.payload.storeName;
+      const productName = action.payload.productName;
+      const storeIndex = state.stores.findIndex(
+        (store) => store.name === storeName
+      );
+      const productsUpdated = state.stores[storeIndex].products.filter(
+        (product) => product.name !== productName
+      );
+      state.stores[storeIndex].products = productsUpdated;
+    },
+    editProduct: (state, action) => {
+      const storeName = action.payload.storeName;
+      const productName = action.payload.productName;
+      const storeIndex = state.stores.findIndex(
+        (store) => store.name === storeName
+      );
+      console.log(storeIndex);
+      const productIndex = state.stores[storeIndex].products.findIndex(
+        (product) => product.name === productName
+      );
+      const productUpdated = {
+        ...state.stores[storeIndex].products[productIndex],
+        ...action.payload.newDetails,
+      };
+      state.stores[storeIndex].products.splice(productIndex, 1, productUpdated);
+    },
   },
 });
 
