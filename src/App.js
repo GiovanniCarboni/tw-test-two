@@ -64,9 +64,6 @@ function App() {
     if (!JSON.parse(localStorage.getItem("users"))) {
       localStorage.setItem("users", JSON.stringify(dummyUsers));
     }
-    if (!JSON.parse(localStorage.getItem("stores"))) {
-      localStorage.setItem("stores", JSON.stringify(dummyStores));
-    }
   }, []);
 
   return <RouterProvider router={router} />;

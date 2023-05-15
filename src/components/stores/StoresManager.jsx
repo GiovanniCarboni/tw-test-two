@@ -16,9 +16,9 @@ export default function StoresManager() {
       {managerVisible && (
         <Form method="post">
           <label htmlFor="name">Store name</label>
-          <input type="text" id="name" name="name" />
+          <input type="text" id="name" name="name" required />
           <label htmlFor="address">Store Address</label>
-          <input type="text" id="address" name="address" />
+          <input type="text" id="address" name="address" required />
           <button>Save</button>
         </Form>
       )}

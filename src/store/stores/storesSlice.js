@@ -1,8 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
+import dummyStores from "../../data/stores";
 
 const initState = () => {
   const stores = JSON.parse(localStorage.getItem("stores"));
-  return stores ? { stores } : { stores: [] };
+  return stores ? { stores } : { stores: dummyStores };
 };
 
 const storesSlice = createSlice({

@@ -77,7 +77,6 @@ export const action = async ({ request, params }) => {
     const products = JSON.parse(localStorage.getItem("stores")).find(
       (store) => store.name === params.storeName
     ).products;
-    console.log(products);
 
     const data = await request.formData();
     const newProduct = {

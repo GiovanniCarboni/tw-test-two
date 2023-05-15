@@ -43,9 +43,9 @@ export default function StoreManager() {
       {addProductVisible && (
         <Form method="post">
           <label htmlFor="name">Product name</label>
-          <input type="text" id="name" name="name" />
+          <input type="text" id="name" name="name" required />
           <label htmlFor="description">Product description</label>
-          <input type="text" id="description" name="description" />
+          <input type="text" id="description" name="description" required />
           <button>Save</button>
         </Form>
       )}
