@@ -46,6 +46,8 @@ export default function StoreManager() {
           <input type="text" id="name" name="name" required />
           <label htmlFor="description">Product description</label>
           <input type="text" id="description" name="description" required />
+          <label htmlFor="image">Product image</label>
+          <input type="url" id="image" name="image" required />
           <button>Save</button>
         </Form>
       )}

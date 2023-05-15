@@ -19,6 +19,8 @@ export default function StoresManager() {
           <input type="text" id="name" name="name" required />
           <label htmlFor="address">Store Address</label>
           <input type="text" id="address" name="address" required />
+          <label htmlFor="image">Store image</label>
+          <input type="url" id="image" name="image" required />
           <button>Save</button>
         </Form>
       )}

@@ -23,12 +23,14 @@ export default function ProductsPage() {
     <>
       <h1>{store.name}</h1>
       <p>{store.address}</p>
+      <img src={store.image} alt={store.name} height="150" />
       {data && data.message && <p>{data.message}</p>}
       {auth.type === "admin" && <StoreManager />}
       {store.products &&
         store.products.map((product) => (
           <Link key={product.name} to={product.name}>
             <div style={{ border: "1px solid black" }}>
+              <img src={product.image} alt={product.name} height="120" />
               <p>{product.name}</p>
               <p>{product.description}</p>
             </div>
@@ -82,6 +84,7 @@ export const action = async ({ request, params }) => {
     const newProduct = {
       name: data.get("name"),
       description: data.get("description"),
+      image: data.get("image"),
     };
 
     if (products.some((product) => product.name === newProduct.name)) {

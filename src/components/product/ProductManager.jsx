@@ -24,6 +24,8 @@ export default function ProductManager() {
           <input type="text" id="name" name="name" />
           <label htmlFor="description">Product description</label>
           <input type="text" id="description" name="description" />
+          <label htmlFor="image">Product image</label>
+          <input type="text" id="image" name="image" />
           <button>Save</button>
           <button type="button" onClick={handleRemoveStore}>
             Remove product

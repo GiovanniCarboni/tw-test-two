@@ -22,6 +22,7 @@ export default function StoresPage() {
         stores.map((store) => (
           <Link key={store.name} to={store.name}>
             <div style={{ border: "1px solid black" }}>
+              <img src={store.image} alt={store.name} height="120" />
               <p>{store.name}</p>
               <p>{store.address}</p>
             </div>
@@ -38,6 +39,7 @@ export const action = async ({ request }) => {
   const newStore = {
     name: data.get("name"),
     address: data.get("address"),
+    image: data.get("image"),
   };
 
   if (stores.some((store) => store.name === newStore.name)) {

@@ -16,6 +16,7 @@ export default function ProductDetailsPage() {
   return (
     <>
       <h1>{product.name}</h1>
+      <img src={product.image} alt={product.name} />
       <p>{product.description}</p>
       {auth.type === "admin" && <ProductManager />}
     </>
@@ -43,6 +44,7 @@ export const action = async ({ request, params }) => {
     const newDetails = {
       name: data.get("name"),
       description: data.get("description"),
+      image: data.get("image"),
     };
 
     for (const detail in newDetails) {
