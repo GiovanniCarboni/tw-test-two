@@ -1,4 +1,4 @@
-import { Link, redirect, json } from "react-router-dom";
+import { redirect, json } from "react-router-dom";
 import { AuthForm } from "../components";
 
 import store from "../store/index";
@@ -8,11 +8,7 @@ export default function LoginPage() {
   return (
     <>
       <h1>Login Page</h1>
-      <AuthForm />
-      <p>
-        If you do not have an account yet, please
-        <Link to="/signup">sign up</Link>.
-      </p>
+      <AuthForm mode="login" />
     </>
   );
 }

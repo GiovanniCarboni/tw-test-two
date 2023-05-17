@@ -2,12 +2,13 @@ import { useSelector } from "react-redux";
 import { StoresManager } from "../components";
 import store from "../store";
 import { storesActions } from "../store/stores/storesSlice";
-import { Link, json, redirect, useActionData } from "react-router-dom";
+import { json, redirect } from "react-router-dom";
+import { Store } from "../components";
+import Container from "../styles/Container";
 
 export default function StoresPage() {
   const auth = useSelector((state) => state.auth);
   const { stores } = useSelector((state) => state.stores);
-  const data = useActionData();
 
   if (!auth.isLoggedIn) {
     return <p>You must be logged in to view this page</p>;
@@ -15,19 +16,12 @@ export default function StoresPage() {
 
   return (
     <>
-      <h1>Stores Page</h1>
+      <h1>Browse our stores</h1>
       {auth.type === "admin" && <StoresManager />}
-      {data && data.message && <p>{data.message}</p>}
-      {stores.length > 0 &&
-        stores.map((store) => (
-          <Link key={store.name} to={store.name}>
-            <div style={{ border: "1px solid black" }}>
-              <img src={store.image} alt={store.name} height="120" />
-              <p>{store.name}</p>
-              <p>{store.address}</p>
-            </div>
-          </Link>
-        ))}
+      <Container>
+        {stores.length > 0 &&
+          stores.map((store) => <Store store={store} key={store.name} />)}
+      </Container>
     </>
   );
 }

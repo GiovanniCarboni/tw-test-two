@@ -3,7 +3,7 @@ const stores = [
     name: "Soap store",
     address: "Manzoni street, 5",
     image:
-      "https://images.unsplash.com/photo-1600697411611-4248e95355f7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80",
+      "https://images.unsplash.com/photo-1600857544200-b2f666a9a2ec?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80",
     products: [
       {
         name: "Fruity soap bar",

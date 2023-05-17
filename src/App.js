@@ -1,7 +1,6 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
 import dummyUsers from "./data/users";
-import dummyStores from "./data/stores";
 
 import HomePage from "./pages/Home";
 import LoginPage from "./pages/Login";
@@ -21,6 +20,8 @@ import { loader as loadProductDetails } from "./pages/ProductDetails";
 import { action as editProductAction } from "./pages/ProductDetails";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
+
+import GlobalStyle from "./styles/GlobalStyles";
 
 const router = createBrowserRouter([
   {
@@ -66,7 +67,12 @@ function App() {
     }
   }, []);
 
-  return <RouterProvider router={router} />;
+  return (
+    <>
+      <GlobalStyle />
+      <RouterProvider router={router} />;
+    </>
+  );
 }
 
 export default App;

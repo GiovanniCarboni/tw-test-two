@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Form, useSubmit } from "react-router-dom";
 
+import InputBlock from "../../styles/InputBlock";
+
 export default function ProductManager() {
   const [managerVisible, setManagerVisible] = useState(false);
   const submit = useSubmit();
@@ -20,16 +22,26 @@ export default function ProductManager() {
       </button>
       {managerVisible && (
         <Form method="patch">
-          <label htmlFor="name">Product name</label>
-          <input type="text" id="name" name="name" />
-          <label htmlFor="description">Product description</label>
-          <input type="text" id="description" name="description" />
-          <label htmlFor="image">Product image</label>
-          <input type="text" id="image" name="image" />
-          <button>Save</button>
-          <button type="button" onClick={handleRemoveStore}>
-            Remove product
-          </button>
+          <InputBlock>
+            <label htmlFor="name">Product name</label>
+            <input type="text" id="name" name="name" />
+          </InputBlock>
+          <InputBlock>
+            <label htmlFor="description">Product description</label>
+            <input type="text" id="description" name="description" />
+          </InputBlock>
+          <InputBlock>
+            <label htmlFor="image">Product image</label>
+            <input type="text" id="image" name="image" />
+            <button>Save</button>
+            <button
+              className="danger"
+              type="button"
+              onClick={handleRemoveStore}
+            >
+              Remove product
+            </button>
+          </InputBlock>
         </Form>
       )}
     </>

@@ -1,4 +1,4 @@
-import { Link, json, redirect } from "react-router-dom";
+import { json, redirect } from "react-router-dom";
 
 import store from "../store";
 import { register } from "../store/auth/authSlice";
@@ -8,10 +8,7 @@ export default function SignupPage() {
   return (
     <>
       <h1>Signup Page</h1>
-      <AuthForm />
-      <p>
-        If you alread have an account, <Link to="/login">log in</Link>.
-      </p>
+      <AuthForm mode="signup" />
     </>
   );
 }

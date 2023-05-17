@@ -1,5 +1,7 @@
 import { useState } from "react";
-import { Form, useSubmit } from "react-router-dom";
+import { useSubmit } from "react-router-dom";
+import AdminActions from "../../styles/AdminActions";
+import { EditStore, AddProduct } from "../index";
 
 export default function StoreManager() {
   const [storeEditorVisible, setStoreEditorVisible] = useState(false);
@@ -8,11 +10,11 @@ export default function StoreManager() {
 
   const handleShowManager = () => {
     setStoreEditorVisible((prevState) => !prevState);
-    // if (addProductVisible) setAddProductVisible(false);
+    if (addProductVisible) setAddProductVisible(false);
   };
   const handleShowAddProduct = () => {
     setAddProductVisible((prevState) => !prevState);
-    // if (storeEditorVisible) setStoreEditorVisible(false);
+    if (storeEditorVisible) setStoreEditorVisible(false);
   };
 
   const handleRemoveStore = () => {
@@ -21,36 +23,20 @@ export default function StoreManager() {
 
   return (
     <>
-      <button onClick={handleShowManager}>
-        {storeEditorVisible ? "Close edit store" : "Edit Store"}
-      </button>
+      <AdminActions>
+        <button onClick={handleShowManager}>
+          {storeEditorVisible ? "Close edit store" : "Edit Store"}
+        </button>
+        <button onClick={handleShowAddProduct}>
+          {addProductVisible ? "Close add product" : "Add product"}
+        </button>
+      </AdminActions>
 
       {storeEditorVisible && (
-        <Form method="patch">
-          <label htmlFor="name">Store name</label>
-          <input type="text" id="name" name="name" />
-          <label htmlFor="address">Store Address</label>
-          <input type="text" id="address" name="address" />
-          <button>Save</button>
-          <button type="button" onClick={handleRemoveStore}>
-            Remove store
-          </button>
-        </Form>
+        <EditStore handleRemoveStore={handleRemoveStore} />
       )}
-      <button onClick={handleShowAddProduct}>
-        {addProductVisible ? "Close add product" : "Add product"}
-      </button>
-      {addProductVisible && (
-        <Form method="post">
-          <label htmlFor="name">Product name</label>
-          <input type="text" id="name" name="name" required />
-          <label htmlFor="description">Product description</label>
-          <input type="text" id="description" name="description" required />
-          <label htmlFor="image">Product image</label>
-          <input type="url" id="image" name="image" required />
-          <button>Save</button>
-        </Form>
-      )}
+
+      {addProductVisible && <AddProduct />}
     </>
   );
 }

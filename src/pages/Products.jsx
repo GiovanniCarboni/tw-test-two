@@ -1,14 +1,9 @@
 import { useSelector } from "react-redux";
-import {
-  redirect,
-  useLoaderData,
-  Link,
-  json,
-  useActionData,
-} from "react-router-dom";
+import { redirect, useLoaderData, json, useActionData } from "react-router-dom";
 import store from "../store";
 import { storesActions } from "../store/stores/storesSlice";
-import { StoreManager } from "../components";
+import { Product, StoreManager } from "../components";
+import Container from "../styles/Container";
 
 export default function ProductsPage() {
   const store = useLoaderData();
@@ -22,20 +17,14 @@ export default function ProductsPage() {
   return (
     <>
       <h1>{store.name}</h1>
-      <p>{store.address}</p>
-      <img src={store.image} alt={store.name} height="150" />
       {data && data.message && <p>{data.message}</p>}
       {auth.type === "admin" && <StoreManager />}
-      {store.products &&
-        store.products.map((product) => (
-          <Link key={product.name} to={product.name}>
-            <div style={{ border: "1px solid black" }}>
-              <img src={product.image} alt={product.name} height="120" />
-              <p>{product.name}</p>
-              <p>{product.description}</p>
-            </div>
-          </Link>
-        ))}
+      <Container>
+        {store.products &&
+          store.products.map((product) => (
+            <Product product={product} key={product.name} />
+          ))}
+      </Container>
     </>
   );
 }

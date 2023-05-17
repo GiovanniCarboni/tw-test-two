@@ -3,6 +3,8 @@ import { redirect, useLoaderData } from "react-router-dom";
 import { ProductManager } from "../components";
 import store from "../store";
 import { storesActions } from "../store/stores/storesSlice";
+import AdminActions from "../styles/AdminActions";
+import StyledProductDetails from "../styles/StyledProductDetails";
 
 export default function ProductDetailsPage() {
   const isLoggedIn = useSelector(({ auth }) => auth.isLoggedIn);
@@ -16,9 +18,15 @@ export default function ProductDetailsPage() {
   return (
     <>
       <h1>{product.name}</h1>
-      <img src={product.image} alt={product.name} />
-      <p>{product.description}</p>
-      {auth.type === "admin" && <ProductManager />}
+      {auth.type === "admin" && (
+        <AdminActions>
+          <ProductManager />
+        </AdminActions>
+      )}
+      <StyledProductDetails>
+        <img src={product.image} alt={product.name} />
+        <p>{product.description}</p>
+      </StyledProductDetails>
     </>
   );
 }
