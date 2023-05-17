@@ -1,14 +1,14 @@
 import { useSelector } from "react-redux";
-import { StoresManager } from "../components";
+import { StoresManager, Store } from "../components";
 import store from "../store";
 import { storesActions } from "../store/stores/storesSlice";
-import { json, redirect } from "react-router-dom";
-import { Store } from "../components";
+import { json, useLoaderData } from "react-router-dom";
 import Container from "../styles/Container";
 
 export default function StoresPage() {
   const auth = useSelector((state) => state.auth);
-  const { stores } = useSelector((state) => state.stores);
+  const stores = useLoaderData();
+  // const { stores } = useSelector((state) => state.stores);
 
   if (!auth.isLoggedIn) {
     return <p>You must be logged in to view this page</p>;
@@ -26,6 +26,11 @@ export default function StoresPage() {
   );
 }
 
+export const loader = () => {
+  const stores = JSON.parse(localStorage.getItem("stores"));
+  return stores;
+};
+
 export const action = async ({ request }) => {
   const stores = JSON.parse(localStorage.getItem("stores"));
 
@@ -36,11 +41,16 @@ export const action = async ({ request }) => {
     image: data.get("image"),
   };
 
-  if (stores.some((store) => store.name === newStore.name)) {
-    return json({ message: "Store name already used" });
+  if (
+    stores.some(
+      (store) =>
+        store.name.toLowerCase().trim() === newStore.name.toLowerCase().trim()
+    )
+  ) {
+    return json({ error: "Store name already used" });
   }
 
   store.dispatch(storesActions.addStore({ newStore }));
 
-  return redirect("/stores");
+  return { message: "Success" };
 };

@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { redirect, useLoaderData, json, useActionData } from "react-router-dom";
+import { redirect, useLoaderData, json } from "react-router-dom";
 import store from "../store";
 import { storesActions } from "../store/stores/storesSlice";
 import { Product, StoreManager } from "../components";
@@ -8,7 +8,6 @@ import Container from "../styles/Container";
 export default function ProductsPage() {
   const store = useLoaderData();
   const auth = useSelector((state) => state.auth);
-  const data = useActionData();
 
   if (!auth.isLoggedIn) {
     return <p>You must be logged in to view this page</p>;
@@ -17,7 +16,7 @@ export default function ProductsPage() {
   return (
     <>
       <h1>{store.name}</h1>
-      {data && data.message && <p>{data.message}</p>}
+
       {auth.type === "admin" && <StoreManager />}
       <Container>
         {store.products &&
@@ -40,11 +39,11 @@ export const action = async ({ request, params }) => {
   // DELETE STORE
   if (request.method === "DELETE") {
     store.dispatch(storesActions.deleteStore({ name: params.storeName }));
-    return redirect("/stores");
   }
 
   // EDIT STORE
   if (request.method === "PATCH") {
+    const stores = JSON.parse(localStorage.getItem("stores"));
     const data = await request.formData();
     const newDetails = {
       name: data.get("name"),
@@ -56,11 +55,20 @@ export const action = async ({ request, params }) => {
       delete newDetails[detail];
     }
 
+    if (
+      newDetails.name &&
+      stores.some(
+        (store) =>
+          store.name.toLowerCase().trim() ===
+          newDetails.name.toLowerCase().trim()
+      )
+    ) {
+      return json({ message: "Store name already used" });
+    }
+
     store.dispatch(
       storesActions.editStore({ name: params.storeName, newDetails })
     );
-
-    return redirect("/stores");
   }
 
   // ADD PRODUCT
@@ -76,12 +84,21 @@ export const action = async ({ request, params }) => {
       image: data.get("image"),
     };
 
-    if (products.some((product) => product.name === newProduct.name)) {
-      return json({ message: "This product already exists" });
+    if (
+      products.some(
+        (product) =>
+          product.name.toLowerCase().trim() ===
+          newProduct.name.toLowerCase().trim()
+      )
+    ) {
+      return json({ error: "This product already exists" });
     }
+
     store.dispatch(
       storesActions.addProduct({ storeName: params.storeName, newProduct })
     );
-    return redirect("/stores/" + params.storeName);
+    return { message: "Success" };
   }
+
+  return redirect("/stores");
 };

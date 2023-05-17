@@ -6,7 +6,7 @@ import DetailsContainer from "../../styles/DetailsContainer";
 export default function Product({ product }) {
   return (
     <Card className="product-card">
-      <div>
+      <div className="image-container">
         <img src={product.image} alt={product.name} height="120" />
       </div>
       <DetailsContainer>

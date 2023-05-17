@@ -8,6 +8,7 @@ export default function ErrorPage() {
     <>
       <NavBar />
       <h1>Something went wrong</h1>
+      <p>{data}</p>
     </>
   );
 }

@@ -8,9 +8,15 @@ const Card = styled.div`
   align-items: center;
   position: relative;
 
-  img {
-    width: 20rem;
+  .image-container {
+    width: 24rem;
     height: 12rem;
+    border: 2px solid var(--background);
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
     object-fit: cover;
   }
 `;

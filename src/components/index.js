@@ -5,8 +5,10 @@ import StoreManager from "./store/StoreManager";
 import ProductManager from "./product/ProductManager";
 import Store from "./store/Store";
 import Product from "./product/Product";
+import AddStore from "./store/AddStore";
 import EditStore from "./store/EditStore";
-import AddProduct from "./store/AddProduct";
+import AddProduct from "./product/AddProduct";
+import EditProduct from "./product/EditProduct";
 
 export {
   NavBar,
@@ -16,6 +18,8 @@ export {
   Store,
   ProductManager,
   Product,
+  AddStore,
   EditStore,
   AddProduct,
+  EditProduct,
 };

@@ -11,7 +11,7 @@ const DetailsContainer = styled.div`
 
   a {
     position: absolute;
-    right: 1rem;
+    right: 3rem;
     bottom: 1rem;
     color: inherit;
     text-decoration: underline;

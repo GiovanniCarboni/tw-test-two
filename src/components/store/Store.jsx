@@ -6,8 +6,8 @@ import DetailsContainer from "../../styles/DetailsContainer";
 export default function Store({ store }) {
   return (
     <Card className="store-card">
-      <div>
-        <img src={store.image} alt={store.name} height="120" />
+      <div className="image-container">
+        <img src={store.image} alt={store.name} />
       </div>
       <DetailsContainer>
         <h3>{store.name}</h3>

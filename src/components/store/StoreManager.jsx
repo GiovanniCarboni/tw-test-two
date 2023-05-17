@@ -1,12 +1,11 @@
 import { useState } from "react";
-import { useSubmit } from "react-router-dom";
+
 import AdminActions from "../../styles/AdminActions";
 import { EditStore, AddProduct } from "../index";
 
 export default function StoreManager() {
   const [storeEditorVisible, setStoreEditorVisible] = useState(false);
   const [addProductVisible, setAddProductVisible] = useState(false);
-  const submit = useSubmit();
 
   const handleShowManager = () => {
     setStoreEditorVisible((prevState) => !prevState);
@@ -15,10 +14,6 @@ export default function StoreManager() {
   const handleShowAddProduct = () => {
     setAddProductVisible((prevState) => !prevState);
     if (storeEditorVisible) setStoreEditorVisible(false);
-  };
-
-  const handleRemoveStore = () => {
-    submit(null, { method: "delete" });
   };
 
   return (
@@ -31,11 +26,7 @@ export default function StoreManager() {
           {addProductVisible ? "Close add product" : "Add product"}
         </button>
       </AdminActions>
-
-      {storeEditorVisible && (
-        <EditStore handleRemoveStore={handleRemoveStore} />
-      )}
-
+      {storeEditorVisible && <EditStore />}
       {addProductVisible && <AddProduct />}
     </>
   );

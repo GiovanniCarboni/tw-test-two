@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { redirect, useLoaderData } from "react-router-dom";
+import { redirect, useLoaderData, json } from "react-router-dom";
 import { ProductManager } from "../components";
 import store from "../store";
 import { storesActions } from "../store/stores/storesSlice";
@@ -48,6 +48,10 @@ export const action = async ({ request, params }) => {
   }
 
   if (request.method === "PATCH") {
+    const products = JSON.parse(localStorage.getItem("stores")).find(
+      (store) => store.name === params.storeName
+    ).products;
+
     const data = await request.formData();
     const newDetails = {
       name: data.get("name"),
@@ -58,6 +62,16 @@ export const action = async ({ request, params }) => {
     for (const detail in newDetails) {
       if (newDetails[detail]) continue;
       delete newDetails[detail];
+    }
+
+    if (
+      products.some(
+        (product) =>
+          product.name.toLowerCase().trim() ===
+          newDetails.name.toLowerCase().trim()
+      )
+    ) {
+      return json({ message: "This product already exists" });
     }
 
     store.dispatch(
