@@ -1,4 +1,3 @@
-import React from "react";
 import { Form, useActionData, useSubmit } from "react-router-dom";
 import InputBlock from "../../styles/InputBlock";
 import FormError from "../../styles/FormResponse";

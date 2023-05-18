@@ -1,6 +1,6 @@
 import { Form, useActionData, useSubmit } from "react-router-dom";
 import InputBlock from "../../styles/InputBlock";
-import FormError from "../../styles/FormResponse";
+import FormResponse from "../../styles/FormResponse";
 
 export default function EditProduct() {
   const data = useActionData();
@@ -23,7 +23,7 @@ export default function EditProduct() {
       <InputBlock>
         <label htmlFor="image">Product image</label>
         <input type="text" id="image" name="image" />
-        {data && data.message && <FormError>{data.message}</FormError>}
+        {data && data.message && <FormResponse>{data.message}</FormResponse>}
         <button>Save</button>
         <button className="danger" type="button" onClick={handleRemoveProduct}>
           Remove product

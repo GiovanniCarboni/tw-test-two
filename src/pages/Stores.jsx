@@ -1,9 +1,10 @@
 import { useSelector } from "react-redux";
-import { StoresManager, Store } from "../components";
+import { json, useLoaderData } from "react-router-dom";
 import store from "../store";
 import { storesActions } from "../store/stores/storesSlice";
-import { json, useLoaderData } from "react-router-dom";
+import { StoresManager, Store } from "../components";
 import Container from "../styles/Container";
+import Protected from "../styles/Protected";
 
 export default function StoresPage() {
   const auth = useSelector((state) => state.auth);
@@ -11,7 +12,7 @@ export default function StoresPage() {
   // const { stores } = useSelector((state) => state.stores);
 
   if (!auth.isLoggedIn) {
-    return <p>You must be logged in to view this page</p>;
+    return <Protected>You must be logged in to view this page</Protected>;
   }
 
   return (

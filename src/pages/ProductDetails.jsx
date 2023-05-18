@@ -1,8 +1,8 @@
 import { useSelector } from "react-redux";
 import { redirect, useLoaderData, json } from "react-router-dom";
-import { ProductManager } from "../components";
 import store from "../store";
 import { storesActions } from "../store/stores/storesSlice";
+import { ProductManager } from "../components";
 import AdminActions from "../styles/AdminActions";
 import StyledProductDetails from "../styles/StyledProductDetails";
 
@@ -65,6 +65,7 @@ export const action = async ({ request, params }) => {
     }
 
     if (
+      newDetails.name &&
       products.some(
         (product) =>
           product.name.toLowerCase().trim() ===

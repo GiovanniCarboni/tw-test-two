@@ -1,5 +1,4 @@
 import { Form, useActionData } from "react-router-dom";
-
 import InputBlock from "../../styles/InputBlock";
 
 export default function AuthForm({ mode }) {

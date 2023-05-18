@@ -4,13 +4,14 @@ import store from "../store";
 import { storesActions } from "../store/stores/storesSlice";
 import { Product, StoreManager } from "../components";
 import Container from "../styles/Container";
+import Protected from "../styles/Protected";
 
 export default function ProductsPage() {
   const store = useLoaderData();
   const auth = useSelector((state) => state.auth);
 
   if (!auth.isLoggedIn) {
-    return <p>You must be logged in to view this page</p>;
+    return <Protected>You must be logged in to view this page</Protected>;
   }
 
   return (

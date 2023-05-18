@@ -51,7 +51,6 @@ const storesSlice = createSlice({
       const storeIndex = state.stores.findIndex(
         (store) => store.name === storeName
       );
-      console.log(storeIndex);
       const productIndex = state.stores[storeIndex].products.findIndex(
         (product) => product.name === productName
       );

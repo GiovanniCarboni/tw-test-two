@@ -1,8 +1,8 @@
 import { redirect, json } from "react-router-dom";
-import { AuthForm } from "../components";
-
 import store from "../store/index";
 import { authenticate } from "../store/auth/authSlice";
+
+import { AuthForm } from "../components";
 
 export default function LoginPage() {
   return (

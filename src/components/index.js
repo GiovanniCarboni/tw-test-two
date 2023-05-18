@@ -2,11 +2,11 @@ import NavBar from "./navigation/NavBar";
 import AuthForm from "./auth/AuthForm";
 import StoresManager from "./store/StoresManager";
 import StoreManager from "./store/StoreManager";
-import ProductManager from "./product/ProductManager";
 import Store from "./store/Store";
-import Product from "./product/Product";
 import AddStore from "./store/AddStore";
 import EditStore from "./store/EditStore";
+import ProductManager from "./product/ProductManager";
+import Product from "./product/Product";
 import AddProduct from "./product/AddProduct";
 import EditProduct from "./product/EditProduct";
 
@@ -15,11 +15,11 @@ export {
   AuthForm,
   StoresManager,
   StoreManager,
-  Store,
-  ProductManager,
-  Product,
   AddStore,
   EditStore,
+  Store,
+  ProductManager,
   AddProduct,
   EditProduct,
+  Product,
 };

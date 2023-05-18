@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import Card from "../../styles/Card";
-
 import DetailsContainer from "../../styles/DetailsContainer";
 
 export default function Store({ store }) {

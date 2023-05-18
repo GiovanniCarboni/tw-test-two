@@ -1,5 +1,4 @@
 import { json, redirect } from "react-router-dom";
-
 import store from "../store";
 import { register } from "../store/auth/authSlice";
 import { AuthForm } from "../components";

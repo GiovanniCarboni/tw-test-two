@@ -1,7 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 import { authActions } from "../../store/auth/authSlice";
-
 import Nav from "../../styles/Nav";
 
 const activeClass = ({ isActive }) => (isActive ? "active" : "");

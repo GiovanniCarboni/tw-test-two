@@ -19,6 +19,11 @@ const GlobalStyle = createGlobalStyle`
     font-family: serif;
   }
 
+  h1 {
+    padding: 1.4rem;
+    text-align: center;
+  }
+
   a {
     text-decoration: none;
   }
