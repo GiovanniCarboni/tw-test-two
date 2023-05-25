@@ -39,7 +39,7 @@ export default function Store({ store }) {
                 <EditIco />
               </button>
               <Form method="delete">
-                <input value={store.name} name="store-name" hidden />
+                <input value={store.name} name="store-name" readOnly hidden />
                 <button className="delete-btn">
                   <DeleteIco />
                 </button>

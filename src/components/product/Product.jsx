@@ -35,7 +35,12 @@ export default function Product({ product }) {
                 <EditIco />
               </button>
               <Form method="delete">
-                <input value={product.name} name="product-name" hidden />
+                <input
+                  value={product.name}
+                  name="product-name"
+                  readOnly
+                  hidden
+                />
                 <button className="delete-btn">
                   <DeleteIco />
                 </button>

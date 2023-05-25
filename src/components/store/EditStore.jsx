@@ -8,6 +8,7 @@ export default function EditStore({ store, onClose }) {
   const [controlFields, setControlFields] = useState({
     name: store.name,
     address: store.address,
+    image: store.image,
   });
 
   useEffect(() => {
@@ -25,12 +26,18 @@ export default function EditStore({ store, onClose }) {
       address: e.target.value,
     }));
   };
+  const changeImage = (e) => {
+    setControlFields((prevState) => ({
+      ...prevState,
+      image: e.target.value,
+    }));
+  };
 
   return (
     <>
       <h3 className="form-title">Edit store</h3>
       <Form method="patch">
-        <input name="original-name" value={store.name} hidden />
+        <input name="original-name" value={store.name} readOnly hidden />
         <InputBlock>
           <label htmlFor="name">Store name</label>
           <input
@@ -50,7 +57,19 @@ export default function EditStore({ store, onClose }) {
             value={controlFields.address}
             onChange={changeAddress}
           />
-          {data && data.message && <FormResponse>{data.message}</FormResponse>}
+        </InputBlock>
+        <InputBlock>
+          <label htmlFor="image">Product image</label>
+          <input
+            type="text"
+            id="image"
+            name="image"
+            value={controlFields.image}
+            onChange={changeImage}
+          />
+          {data && data.message && (
+            <FormResponse success>{data.message}</FormResponse>
+          )}
           {data && data.error && <FormResponse>{data.error}</FormResponse>}
           <button>Save</button>
         </InputBlock>

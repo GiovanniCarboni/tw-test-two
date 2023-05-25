@@ -2,11 +2,12 @@ import styled from "styled-components";
 
 const StyledModal = styled.div`
   position: fixed;
-  top: 15vh;
-  left: 5%;
-  width: 90%;
+  top: 6rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 500px;
   background-color: var(--background);
-  padding: 1rem;
+  padding: 1rem 2rem;
   border-radius: 14px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
   z-index: 30;

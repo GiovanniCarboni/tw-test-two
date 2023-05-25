@@ -64,6 +64,7 @@ export const action = async ({ request }) => {
     const newName = data.get("name");
     const newDetails = {
       address: data.get("address"),
+      image: data.get("image"),
     };
 
     if (storeName !== newName) newDetails.name = newName;
@@ -85,7 +86,6 @@ export const action = async ({ request }) => {
     }
 
     store.dispatch(storesActions.editStore({ name: storeName, newDetails }));
-    // return redirect("/stores");
     return { message: "success" };
   }
 

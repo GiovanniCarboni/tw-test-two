@@ -37,7 +37,7 @@ export default function EditProduct({ product, onClose }) {
     <>
       <h3 className="form-title">Edit product</h3>
       <Form method="patch">
-        <input name="original-name" value={product.name} hidden />
+        <input name="original-name" value={product.name} readOnly hidden />
         <InputBlock>
           <label htmlFor="name">Product name</label>
           <input
