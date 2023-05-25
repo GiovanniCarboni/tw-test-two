@@ -1,32 +1,27 @@
 import { useState } from "react";
 import AdminActions from "../../styles/AdminActions";
-import { EditStore, AddProduct } from "../index";
+import { AddProduct, Modal } from "../index";
 
 export default function StoreManager() {
-  const [storeEditorVisible, setStoreEditorVisible] = useState(false);
-  const [addProductVisible, setAddProductVisible] = useState(false);
+  const [managerVisible, setManagerVisible] = useState(false);
 
-  const handleShowManager = () => {
-    setStoreEditorVisible((prevState) => !prevState);
-    if (addProductVisible) setAddProductVisible(false);
+  const openManager = () => {
+    setManagerVisible(true);
   };
-  const handleShowAddProduct = () => {
-    setAddProductVisible((prevState) => !prevState);
-    if (storeEditorVisible) setStoreEditorVisible(false);
+  const closeManager = () => {
+    setManagerVisible(false);
   };
 
   return (
     <>
       <AdminActions>
-        <button onClick={handleShowManager}>
-          {storeEditorVisible ? "Close edit store" : "Edit Store"}
-        </button>
-        <button onClick={handleShowAddProduct}>
-          {addProductVisible ? "Close add product" : "Add product"}
-        </button>
+        <button onClick={openManager}>Add product</button>
       </AdminActions>
-      {storeEditorVisible && <EditStore />}
-      {addProductVisible && <AddProduct />}
+      {managerVisible && (
+        <Modal onClose={closeManager}>
+          <AddProduct onClose={closeManager} />
+        </Modal>
+      )}
     </>
   );
 }

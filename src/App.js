@@ -17,7 +17,6 @@ import ProductsPage, {
 } from "./pages/Products";
 import ProductDetailsPage, {
   loader as loadProductDetails,
-  action as editProductAction,
 } from "./pages/ProductDetails";
 import RootLayout from "./pages/Root";
 import ErrorPage from "./pages/Error";
@@ -49,7 +48,6 @@ const router = createBrowserRouter([
         path: "/stores/:storeName/:productName",
         element: <ProductDetailsPage />,
         loader: loadProductDetails,
-        action: editProductAction,
       },
     ],
   },

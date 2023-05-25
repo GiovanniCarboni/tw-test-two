@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { redirect, useLoaderData, json } from "react-router-dom";
+import { useLoaderData, json } from "react-router-dom";
 import store from "../store";
 import { storesActions } from "../store/stores/storesSlice";
 import { Product, StoreManager } from "../components";
@@ -37,48 +37,13 @@ export const loader = ({ params }) => {
 };
 
 export const action = async ({ request, params }) => {
-  // DELETE STORE
-  if (request.method === "DELETE") {
-    store.dispatch(storesActions.deleteStore({ name: params.storeName }));
-  }
-
-  // EDIT STORE
-  if (request.method === "PATCH") {
-    const stores = JSON.parse(localStorage.getItem("stores"));
-    const data = await request.formData();
-    const newDetails = {
-      name: data.get("name"),
-      address: data.get("address"),
-    };
-
-    for (const detail in newDetails) {
-      if (newDetails[detail]) continue;
-      delete newDetails[detail];
-    }
-
-    if (
-      newDetails.name &&
-      stores.some(
-        (store) =>
-          store.name.toLowerCase().trim() ===
-          newDetails.name.toLowerCase().trim()
-      )
-    ) {
-      return json({ message: "Store name already used" });
-    }
-
-    store.dispatch(
-      storesActions.editStore({ name: params.storeName, newDetails })
-    );
-  }
+  const products = JSON.parse(localStorage.getItem("stores")).find(
+    (store) => store.name === params.storeName
+  ).products;
+  const data = await request.formData();
 
   // ADD PRODUCT
   if (request.method === "POST") {
-    const products = JSON.parse(localStorage.getItem("stores")).find(
-      (store) => store.name === params.storeName
-    ).products;
-
-    const data = await request.formData();
     const newProduct = {
       name: data.get("name"),
       description: data.get("description"),
@@ -101,5 +66,52 @@ export const action = async ({ request, params }) => {
     return { message: "Success" };
   }
 
-  return redirect("/stores");
+  // EDIT PRODUCT
+  if (request.method === "PATCH") {
+    const productName = data.get("original-name");
+    const newName = data.get("name");
+    const newDetails = {
+      description: data.get("description"),
+      image: data.get("image"),
+    };
+
+    if (productName !== newName) newDetails.name = newName;
+
+    for (const detail in newDetails) {
+      if (newDetails[detail]) continue;
+      delete newDetails[detail];
+    }
+
+    if (
+      newDetails.name &&
+      products.some(
+        (product) =>
+          product.name.toLowerCase().trim() ===
+          newDetails.name.toLowerCase().trim()
+      )
+    ) {
+      return json({ error: "This product already exists" });
+    }
+
+    store.dispatch(
+      storesActions.editProduct({
+        storeName: params.storeName,
+        productName,
+        newDetails,
+      })
+    );
+    return { message: "success" };
+  }
+
+  // DELETE PRODUCT
+  if (request.method === "DELETE") {
+    const productName = data.get("product-name");
+    store.dispatch(
+      storesActions.deleteProduct({
+        storeName: params.storeName,
+        productName,
+      })
+    );
+    return { message: "success" };
+  }
 };

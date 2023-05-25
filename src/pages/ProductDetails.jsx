@@ -1,15 +1,10 @@
 import { useSelector } from "react-redux";
-import { redirect, useLoaderData, json } from "react-router-dom";
-import store from "../store";
-import { storesActions } from "../store/stores/storesSlice";
-import { ProductManager } from "../components";
-import AdminActions from "../styles/AdminActions";
+import { useLoaderData } from "react-router-dom";
 import StyledProductDetails from "../styles/StyledProductDetails";
 
 export default function ProductDetailsPage() {
   const isLoggedIn = useSelector(({ auth }) => auth.isLoggedIn);
   const product = useLoaderData();
-  const auth = useSelector((state) => state.auth);
 
   if (!isLoggedIn) {
     return <p>You must be logged in to view this page</p>;
@@ -18,11 +13,6 @@ export default function ProductDetailsPage() {
   return (
     <>
       <h1>{product.name}</h1>
-      {auth.type === "admin" && (
-        <AdminActions>
-          <ProductManager />
-        </AdminActions>
-      )}
       <StyledProductDetails>
         <img src={product.image} alt={product.name} />
         <p>{product.description}</p>
@@ -37,48 +27,4 @@ export const loader = ({ params }) => {
   );
 
   return store.products.find((product) => product.name === params.productName);
-};
-
-export const action = async ({ request, params }) => {
-  const storeName = params.storeName;
-  const productName = params.productName;
-
-  if (request.method === "DELETE") {
-    store.dispatch(storesActions.deleteProduct({ storeName, productName }));
-  }
-
-  if (request.method === "PATCH") {
-    const products = JSON.parse(localStorage.getItem("stores")).find(
-      (store) => store.name === params.storeName
-    ).products;
-
-    const data = await request.formData();
-    const newDetails = {
-      name: data.get("name"),
-      description: data.get("description"),
-      image: data.get("image"),
-    };
-
-    for (const detail in newDetails) {
-      if (newDetails[detail]) continue;
-      delete newDetails[detail];
-    }
-
-    if (
-      newDetails.name &&
-      products.some(
-        (product) =>
-          product.name.toLowerCase().trim() ===
-          newDetails.name.toLowerCase().trim()
-      )
-    ) {
-      return json({ message: "This product already exists" });
-    }
-
-    store.dispatch(
-      storesActions.editProduct({ storeName, productName, newDetails })
-    );
-  }
-
-  return redirect("/stores/" + storeName);
 };

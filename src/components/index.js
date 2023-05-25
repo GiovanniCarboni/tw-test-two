@@ -9,6 +9,7 @@ import ProductManager from "./product/ProductManager";
 import Product from "./product/Product";
 import AddProduct from "./product/AddProduct";
 import EditProduct from "./product/EditProduct";
+import Modal from "./UI/Modal";
 
 export {
   NavBar,
@@ -22,4 +23,5 @@ export {
   AddProduct,
   EditProduct,
   Product,
+  Modal,
 };

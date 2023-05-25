@@ -24,6 +24,10 @@ const GlobalStyle = createGlobalStyle`
     text-align: center;
   }
 
+  h3.form-title {
+    text-align: center;
+  }
+
   a {
     text-decoration: none;
   }

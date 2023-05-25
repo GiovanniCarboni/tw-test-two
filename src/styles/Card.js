@@ -18,6 +18,28 @@ const Card = styled.div`
     height: 100%;
     object-fit: cover;
   }
+
+  .edit-btn,
+  .delete-btn {
+    width: 2.2rem;
+    height: 2.2rem;
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    padding: 0.4rem;
+    border-radius: 5px;
+    background: none;
+    cursor: pointer;
+    transition: transform 0.3s;
+    &:hover {
+      transform: scale(110%);
+      background-color: var(--background);
+    }
+  }
+
+  .edit-btn {
+    right: 3.5rem;
+  }
 `;
 
 export default Card;
