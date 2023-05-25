@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { json, redirect, useLoaderData } from "react-router-dom";
+import { json, useLoaderData } from "react-router-dom";
 import store from "../store";
 import { storesActions } from "../store/stores/storesSlice";
 import { StoresManager, Store } from "../components";
@@ -33,10 +33,10 @@ export const loader = () => {
 
 export const action = async ({ request }) => {
   const stores = JSON.parse(localStorage.getItem("stores"));
+  const data = await request.formData();
 
   // ADD STORE
   if (request.method === "POST") {
-    const data = await request.formData();
     const newStore = {
       name: data.get("name"),
       address: data.get("address"),
@@ -59,7 +59,6 @@ export const action = async ({ request }) => {
 
   // EDIT STORE
   if (request.method === "PATCH") {
-    const data = await request.formData();
     const storeName = data.get("original-name");
     const newName = data.get("name");
     const newDetails = {
@@ -91,7 +90,6 @@ export const action = async ({ request }) => {
 
   // DELETE STORE
   if (request.method === "DELETE") {
-    const data = await request.formData();
     const storeName = data.get("store-name");
     store.dispatch(storesActions.deleteStore({ name: storeName }));
     return { message: "success" };

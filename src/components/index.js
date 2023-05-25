@@ -5,7 +5,6 @@ import StoreManager from "./store/StoreManager";
 import Store from "./store/Store";
 import AddStore from "./store/AddStore";
 import EditStore from "./store/EditStore";
-import ProductManager from "./product/ProductManager";
 import Product from "./product/Product";
 import AddProduct from "./product/AddProduct";
 import EditProduct from "./product/EditProduct";
@@ -19,7 +18,6 @@ export {
   AddStore,
   EditStore,
   Store,
-  ProductManager,
   AddProduct,
   EditProduct,
   Product,
